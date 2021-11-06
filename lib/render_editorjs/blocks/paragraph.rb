@@ -2,9 +2,21 @@
 
 module RenderEditorjs
   module Blocks
+    # Compatible with default Paragraph and paragraph-with-aligment
+    # https://github.com/kaaaaaaaaaaai/paragraph-with-alignment
     class Paragraph < Base
       DEFAULT_OPTIONS = {
         tag: "p"
+      }.freeze
+
+      SAFE_TAGS = {
+        "b" => nil,
+        "i" => nil,
+        "u" => ["class"],
+        "del" => ["class"],
+        "a" => ["href"],
+        "mark" => ["class"],
+        "code" => ["class"]
       }.freeze
 
       SCHEMA = YAML.safe_load(<<~YAML)
@@ -16,9 +28,9 @@ module RenderEditorjs
           alignment:
             type: string
             enum:
-              - align-left
-              - align-center
-              - align-right
+              - left
+              - center
+              - right
       YAML
 
       attr_reader :options
@@ -32,36 +44,17 @@ module RenderEditorjs
         return unless valid?(data)
 
         alignment = data["alignment"]
-        class_name_str = ""
-        if alignment.present?
-          class_name_str = [
-            class_name_str,
-            css_name("__#{alignment}")
-          ].join(" ")
-        end
-
-        content_tag(options[:tag], class: class_name_str.presence) do
+        css_class = alignment ? "align-#{alignment}" : nil
+        content_tag(options[:tag], class: css_class) do
           sanitize(data["text"]).html_safe
         end
-      end
-
-      def safe_tags
-        {
-          "b" => nil,
-          "i" => nil,
-          "u" => ["class"],
-          "del" => ["class"],
-          "a" => ["href"],
-          "mark" => ["class"],
-          "code" => ["class"]
-        }
       end
 
       def sanitize(text)
         Sanitize.fragment(
           text,
-          elements: safe_tags.keys,
-          attributes: safe_tags.select { |_k, v| v },
+          elements: SAFE_TAGS.keys,
+          attributes: SAFE_TAGS.select { |_k, v| v },
           remove_contents: true
         )
       end

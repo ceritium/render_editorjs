@@ -33,5 +33,9 @@ module RenderEditorjs
     def initialize(custom_mapping = {})
       @mapping = DEFAULT_MAPPING.merge(custom_mapping)
     end
+
+    def validator(content)
+      RenderEditorjs::Validator.new(content, SCHEMA)
+    end
   end
 end

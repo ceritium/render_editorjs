@@ -2,11 +2,8 @@
 
 module RenderEditorjs
   module Blocks
+    # Compatible with https://github.com/editor-js/header
     class Header < Base
-      DEFAULT_OPTIONS = {
-        alignment: "align-left"
-      }.freeze
-
       SCHEMA = YAML.safe_load(<<~YAML)
         type: object
         additionalProperties: false
@@ -19,9 +16,9 @@ module RenderEditorjs
           alignment:
             type: string
             enum:
-              - align-left
-              - align-center
-              - align-right
+              - left
+              - center
+              - right
         required:
         - text
         - level
@@ -31,15 +28,8 @@ module RenderEditorjs
         return unless valid?(data)
 
         alignment = data["alignment"]
-        class_name = ""
-        if alignment.present?
-          class_name = [
-            class_name,
-            css_name("__#{alignment}")
-          ].join(" ")
-        end
-
-        content_tag(:"h#{data["level"]}", sanitize(data["text"]).html_safe, class: class_name.presence)
+        css_class = alignment ? "align-#{alignment}" : nil
+        content_tag(:"h#{data["level"]}", sanitize(data["text"]).html_safe, class: css_class)
       end
 
       def sanitize(text)

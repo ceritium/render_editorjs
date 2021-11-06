@@ -4,8 +4,6 @@ module RenderEditorjs
   module Blocks
     # Render for  https://github.com/editor-js/image
     class Image < Base
-      DEFAULT_OPTIONS = {}.freeze
-
       SCHEMA = YAML.safe_load(<<~YAML)
         type: object
         additionalProperties: false
@@ -32,9 +30,8 @@ module RenderEditorjs
       def render(data)
         return unless valid?(data)
 
-        data = sanitize(data)
-        url = data["file"]["url"]
-        caption = data["caption"]
+        url = sanitize_url(data["file"]["url"])
+        caption = sanitize_caption(data["caption"])
         with_border = data["withBorder"]
         with_background = data["withBackground"]
         stretched = data["stretched"]
@@ -47,7 +44,8 @@ module RenderEditorjs
         html_str = content_tag :div, class: html_class do
           content_tag :img, "", src: url
         end
-        html_str << content_tag(:div, caption.html_safe, class: "caption").html_safe
+        html_str << content_tag(:div, caption.html_safe, class: "caption").html_safe if caption.presence
+        html_str
       end
 
       def sanitize(data)
@@ -58,6 +56,14 @@ module RenderEditorjs
         end
 
         data
+      end
+
+      def sanitize_url(url)
+        Sanitize.fragment(url, remove_contents: true).strip.gsub("&amp;", "&")
+      end
+
+      def sanitize_caption(caption)
+        Sanitize.fragment(caption, remove_contents: true).strip
       end
     end
   end

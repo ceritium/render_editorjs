@@ -9,9 +9,7 @@ loader = Zeitwerk::Loader.for_gem
 loader.setup
 
 module RenderEditorjs
-  class Error < StandardError; end
-
   def self.render(content)
-    RenderEditorjs::Document.new(RenderEditorjs::DefaultRenderer.new, content).render
+    RenderEditorjs::Document.new(content).render
   end
 end
