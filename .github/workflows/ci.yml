@@ -9,13 +9,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [2.5, 2.6, 2.7, 3.0, head, debug, truffleruby, truffleruby-head ] # jruby and jruby-head fails due nokogiri
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7
+    - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: ${{ matrix.ruby }}
     - name: Cache gems
       uses: actions/cache@v1
       with:
@@ -27,8 +31,7 @@ jobs:
       run: |
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3
-
     - name: Run tests
-      run: bundle exec rake tests
+      run: bundle exec rake test
     - name: Run RuboCop
       run: bundle exec rubocop --parallel
