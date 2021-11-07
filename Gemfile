@@ -5,6 +5,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in render_editorjs.gemspec
 gemspec
 
+gem "codeclimate-test-reporter", "~> 1.0.0"
 gem "guard"
 gem "guard-minitest"
 gem "minitest", "~> 5.0"

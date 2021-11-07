@@ -55,7 +55,7 @@ class RenderEditorjs::Blocks::ParagraphTest < Minitest::Test
     assert_equal '<p><a href="test">hello</a> world</p>', output
   end
 
-  test "#render with del tag and class attribute" do
+  test "#render with mark tag and class attribute" do
     text = "<mark class='test'>hello</mark> world"
     output = Block.new.render("text" => text)
     assert_equal '<p><mark class="test">hello</mark> world</p>', output
