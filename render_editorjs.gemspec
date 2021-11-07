@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["José Galisteo"]
   spec.email         = ["ceritium@gmail.com"]
 
-  spec.summary       = "A modular and customizable Ruby renderer for [Editor.js](https://editorjs.io/).
-"
+  spec.summary       = "A modular and customizable Ruby renderer for https://editorjs.io"
   spec.homepage      = "https://github.com/ceritium/render_editorjs"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")

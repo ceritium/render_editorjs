@@ -41,7 +41,7 @@ RenderEditorjs.render(json) #=> HTML...
 
 ```ruby
 renderer = RenderEditorjs::DefaultRenderer.new
-document = RenderEditorjs::Document.new(renderer, json)
+document = RenderEditorjs::Document.new(json, renderer)
 
 document.valid? #=> true | false
 document.errors #=> Array with the schema errors
@@ -54,7 +54,7 @@ Customize the DefaultRenderer adding or overriding blocks:
 
 ```ruby
 renderer = RenderEditorjs::DefaultRenderer.new("header" => MyCustomHeader.new, "customBlock" => CustomBlock.new)
-document = RenderEditorjs::Document.new(renderer, json)
+document = RenderEditorjs::Document.new(json, renderer)
 document.render #=> My custom HTML
 ```
 
@@ -62,7 +62,7 @@ Create your renderer class:
 
 ```ruby
 renderer = MyOwnRenderer.new
-document = RenderEditorjs::Document.new(renderer, json)
+document = RenderEditorjs::Document.new(json, renderer)
 document.render #=> My custom HTML
 ```
 

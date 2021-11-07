@@ -4,6 +4,18 @@ module RenderEditorjs
   module Blocks
     # Render for https://github.com/editor-js/nested-list
     class List < Base
+      # TODO: Consider extract it and the sanitize method with the other on
+      # Paragraph block to the DefaultRenderer
+      SAFE_TAGS = {
+        "b" => nil,
+        "i" => nil,
+        "u" => ["class"],
+        "del" => ["class"],
+        "a" => ["href"],
+        "mark" => ["class"],
+        "code" => ["class"]
+      }.freeze
+
       SCHEMA = YAML.safe_load(<<~YAML)
         type: object
         additionalProperties: false
@@ -46,23 +58,11 @@ module RenderEditorjs
         end
       end
 
-      def safe_tags
-        {
-          "b" => nil,
-          "i" => nil,
-          "u" => ["class"],
-          "del" => ["class"],
-          "a" => ["href"],
-          "mark" => ["class"],
-          "code" => ["class"]
-        }
-      end
-
       def sanitize(text)
         Sanitize.fragment(
           text,
-          elements: safe_tags.keys,
-          attributes: safe_tags.select { |_k, v| v },
+          elements: SAFE_TAGS.keys,
+          attributes: SAFE_TAGS.select { |_k, v| v },
           remove_contents: true
         )
       end
