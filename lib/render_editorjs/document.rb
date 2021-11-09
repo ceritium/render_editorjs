@@ -6,7 +6,7 @@ module RenderEditorjs
 
     def initialize(content, renderer = RenderEditorjs::DefaultRenderer.new)
       @renderer = renderer
-      @content = content.is_a?(Hash) ? content : JSON.parse(content)
+      @content = content.is_a?(Hash) ? content : parse_json(content)
       @errors = []
     end
 
@@ -52,6 +52,12 @@ module RenderEditorjs
     def block_renderers(block_type)
       @block_renderers ||= {}
       @block_renderers[block_type] ||= renderer.mapping[block_type]
+    end
+
+    def parse_json(content)
+      JSON.parse(content)
+    rescue JSON::ParserError
+      nil
     end
   end
 end
