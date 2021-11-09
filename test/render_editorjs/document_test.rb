@@ -8,6 +8,13 @@ class RenderEditorjs::DocumentTest < Minitest::Test
     assert_kind_of RenderEditorjs::DefaultRenderer, document.renderer
   end
 
+  test "with invalid json return empty string" do
+    document = RenderEditorjs::Document.new("it is not a json")
+    assert_equal "", document.render
+    refute document.valid?
+    assert document.errors.present?
+  end
+
   test "the schema for renderer is invalid return empty string" do
     document = RenderEditorjs::Document.new(TestData::EMPTY)
     assert_equal "", document.render
