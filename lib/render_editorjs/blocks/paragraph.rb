@@ -16,7 +16,8 @@ module RenderEditorjs
         "del" => ["class"],
         "a" => ["href"],
         "mark" => ["class"],
-        "code" => ["class"]
+        "code" => ["class"],
+        "br" => nil
       }.freeze
 
       SCHEMA = YAML.safe_load(<<~YAML)
