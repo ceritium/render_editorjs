@@ -5,11 +5,7 @@ module RenderEditorjs
     # Compatible with default Paragraph and paragraph-with-aligment
     # https://github.com/kaaaaaaaaaaai/paragraph-with-alignment
     class Paragraph < Base
-      DEFAULT_OPTIONS = {
-        tag: "p"
-      }.freeze
-
-      SAFE_TAGS = {
+      DEFAULT_SAFE_TAGS = {
         "b" => nil,
         "i" => nil,
         "u" => ["class"],
@@ -17,6 +13,10 @@ module RenderEditorjs
         "a" => ["href"],
         "mark" => ["class"],
         "code" => ["class"]
+      }.freeze
+
+      DEFAULT_OPTIONS = {
+        tag: "p"
       }.freeze
 
       SCHEMA = YAML.safe_load(<<~YAML)
@@ -35,8 +35,9 @@ module RenderEditorjs
 
       attr_reader :options
 
-      def initialize(options = DEFAULT_OPTIONS)
+      def initialize(options = DEFAULT_OPTIONS.dup)
         @options = options
+        @options[:safe_tags] ||= DEFAULT_SAFE_TAGS
         super()
       end
 
@@ -53,8 +54,8 @@ module RenderEditorjs
       def sanitize(text)
         Sanitize.fragment(
           text,
-          elements: SAFE_TAGS.keys,
-          attributes: SAFE_TAGS.select { |_k, v| v },
+          elements: options[:safe_tags].keys,
+          attributes: options[:safe_tags].select { |_k, v| v },
           remove_contents: true
         )
       end
