@@ -12,8 +12,8 @@ gem "minitest-focus"
 gem "minitest-line"
 gem "minitest-reporters"
 gem "rake", "~> 12.0"
-gem "rubocop", "~> 1.22", require: false
-gem "rubocop-minitest", require: false
-gem "rubocop-performance", require: false
-gem "rubocop-thread_safety", require: false
+gem "rubocop", "1.22.3", require: false
+gem "rubocop-minitest", "0.15.2", require: false
+gem "rubocop-performance", "1.12.0", require: false
+gem "rubocop-thread_safety", "0.4.4", require: false
 gem "simplecov", require: false
