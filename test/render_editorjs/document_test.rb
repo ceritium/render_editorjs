@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "action_view"
 
 class RenderEditorjs::DocumentTest < Minitest::Test
+  include ActionView::Helpers::OutputSafetyHelper
+  
   test "use default renderer as default" do
     document = RenderEditorjs::Document.new(TestData::EMPTY)
     assert_kind_of RenderEditorjs::DefaultRenderer, document.renderer
@@ -29,9 +32,11 @@ class RenderEditorjs::DocumentTest < Minitest::Test
     assert document.errors.blank?
   end
 
-  test "valid schema with block" do
-    document = RenderEditorjs::Document.new(TestData::VALID_WITH_BLOCK)
-    assert_equal "<p>hello world</p>", document.render
+  test "valid schema without blocks returns SafeBuffer" do
+    document = RenderEditorjs::Document.new(TestData::VALID_WITHOUT_BLOCK)
+    result = document.render
+    assert_equal "", result
+    assert_kind_of ActiveSupport::SafeBuffer, result
     assert document.valid?
     assert document.errors.blank?
   end
@@ -48,5 +53,12 @@ class RenderEditorjs::DocumentTest < Minitest::Test
     assert_equal "<p>hello world</p>", document.render
     refute document.valid?
     assert document.errors.present?
+  end
+
+  test "render returns ActiveSupport::SafeBuffer" do
+    document = RenderEditorjs::Document.new(TestData::VALID_WITH_BLOCK)
+    result = document.render
+    assert_equal "<p>hello world</p>", result
+    assert_kind_of ActiveSupport::SafeBuffer, result
   end
 end
