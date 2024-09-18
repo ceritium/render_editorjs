@@ -5,7 +5,7 @@ require "action_view"
 
 class RenderEditorjs::DocumentTest < Minitest::Test
   include ActionView::Helpers::OutputSafetyHelper
-  
+
   test "use default renderer as default" do
     document = RenderEditorjs::Document.new(TestData::EMPTY)
     assert_kind_of RenderEditorjs::DefaultRenderer, document.renderer

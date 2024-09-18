@@ -3,7 +3,7 @@
 module RenderEditorjs
   class Document
     include ActionView::Helpers::OutputSafetyHelper
-    
+
     attr_reader :renderer, :content, :errors
 
     def initialize(content, renderer = RenderEditorjs::DefaultRenderer.new)
@@ -22,12 +22,12 @@ module RenderEditorjs
 
     def render
       return "" unless valid_renderer?
-    
+
       safe_join(
         content["blocks"].map do |block|
           block_renderer = block_renderers(block["type"])
           next unless block_renderer
-    
+
           block_renderer.render(block["data"])
         end.compact
       )
