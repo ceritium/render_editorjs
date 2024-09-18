@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    render_editorjs (0.1.4)
+    render_editorjs (0.1.5)
       actionview (>= 4)
       json-schema (>= 2)
       sanitize (>= 6.0.0)
