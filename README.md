@@ -4,11 +4,16 @@ A modular and customizable Ruby renderer for [Editor.js](https://editorjs.io/).
 
 This gem takes inspiration from [editor_js](https://github.com/xiaohui-zhangxh/editor_js).
 It copies some code blocks logic and schema validations. The `editor_js` gem
-implements the most common blocks. If you don't need any customization would make
-sense give it a try.
+implements the most common blocks. If you don't need any customization, it would make
+sense to try it.
 
 In comparison, `RenderEditorjs` (this gem) only implement a few blocks, but you can
 customize and extend it with your blocks.
+
+## Sponsor
+
+This project is sponsored by [babelfu.com](https://babelfu.com)
+[![Babelfu is a Github based translation service](https://babelfu.com/banner.png)](https://babelfu.com)
 
 ## Installation
 
