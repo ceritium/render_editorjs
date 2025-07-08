@@ -10,11 +10,6 @@ sense to try it.
 In comparison, `RenderEditorjs` (this gem) only implement a few blocks, but you can
 customize and extend it with your blocks.
 
-## Sponsor
-
-This project is sponsored by [babelfu.com](https://babelfu.com)
-[![Babelfu is a Github based translation service](https://babelfu.com/banner.png)](https://babelfu.com)
-
 ## Installation
 
 Add this line to your application's Gemfile:
