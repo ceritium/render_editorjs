@@ -39,3 +39,6 @@ Layout/LineLength:
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
