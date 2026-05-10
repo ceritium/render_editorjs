@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "A modular and customizable Ruby renderer for https://editorjs.io"
   spec.homepage      = "https://github.com/ceritium/render_editorjs"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.1")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.2")
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
