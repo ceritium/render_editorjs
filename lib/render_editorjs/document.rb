@@ -24,12 +24,12 @@ module RenderEditorjs
       return "" unless valid_renderer?
 
       safe_join(
-        content["blocks"].map do |block|
+        content["blocks"].filter_map do |block|
           block_renderer = block_renderers(block["type"])
           next unless block_renderer
 
           block_renderer.render(block["data"])
-        end.compact
+        end
       )
     end
 
