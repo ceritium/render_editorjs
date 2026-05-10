@@ -100,7 +100,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.9.2)
-    rexml (3.3.9)
+    rexml (3.4.2)
     rubocop (1.22.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
