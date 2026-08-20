@@ -12,7 +12,8 @@ module RenderEditorjs
         "del" => ["class"],
         "a" => ["href"],
         "mark" => ["class"],
-        "code" => ["class"]
+        "code" => ["class"],
+        "br" => nil
       }.freeze
 
       DEFAULT_OPTIONS = {
